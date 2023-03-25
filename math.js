@@ -43,14 +43,24 @@ const getCircle = (circleRadio) => {
 
 const getTriangleHeight = (side, base) => {
   if (base === side) {
-    return new Throw("This is not an isosceles Triangle");
+    throw new Error("This is not an isosceles Triangle");
   }
   return Math.sqrt(Math.pow(side, 2) - Math.pow(base, 2) / 4);
+};
+
+const getScaleneTriangleHeight = (side1, side2, side3) => {
+  if (side1 === side2 || side1 === side3 || side2 === side3) {
+    return false;
+  }
+  let s = (side1 + side2 + side3) / 2;
+  let area = Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+  return Math.floor((2 * area) / side1);
 };
 
 console.log(getSquare(8));
 console.log(getTriangle(4, 5, 6, 5));
 console.log(getCircle(3));
-console.log("Isosceles heigh", getTriangleHeight(6, 6));
+console.log("Isosceles heigh", getTriangleHeight(6, 4));
+console.log("Scalene Height", getScaleneTriangleHeight(4, 6, 5));
 
 console.end;
