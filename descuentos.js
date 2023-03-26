@@ -3,12 +3,12 @@ const inputPrice = document.querySelector("#price");
 const inputCoupon = document.querySelector("#coupon");
 const pResult = document.querySelector("#result");
 
-const couponList = {
-  gavo: 15,
-  free: 20,
-  another: 25,
-  cool: 50,
-};
+const couponList = [
+  { code: "gavo", discount: 25 },
+  { code: "free", discount: 99 },
+  { code: "cool", discount: 45 },
+  { code: "ok", discount: 5 },
+];
 
 btn.addEventListener("click", calcularPreciosConDescuento);
 
@@ -21,9 +21,9 @@ function calcularPreciosConDescuento() {
     pResult.innerText = "Rellena los campos";
     return;
   }
-
-  if (Object.getOwnPropertyNames(couponList).find((a) => a === coupon)) {
-    discount = couponList[coupon];
+  const couponSelected = couponList.find((c) => c.code === coupon);
+  if (couponSelected) {
+    discount = couponSelected.discount;
   } else {
     pResult.innerText = "No se ha encontrado el Cupon";
     return;
