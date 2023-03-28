@@ -17,7 +17,7 @@ const calculateMedian = (list) => {
   const aux = Object.assign([], list);
   aux.sort((a, b) => a - b);
   if (esPar(list)) {
-    return ((aux[aux.length / 2] + aux[aux.length / 2 - 1]) / 2).toFixed(2);
+    return Math.round((aux[aux.length / 2] + aux[aux.length / 2 - 1]) / 2, 2);
   }
   return aux[Math.floor(aux.length / 2)];
 };
