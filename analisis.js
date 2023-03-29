@@ -22,3 +22,16 @@ function proyeccionSalarial(name) {
     jobs[jobs.length - 1]
   );
 }
+
+const empresas = {};
+for (persona of salarios) {
+  for (trabajo of persona.trabajos) {
+    if (!empresas[trabajo.empresa]) {
+      empresas[trabajo.empresa] = {};
+    }
+    if (!empresas[trabajo.empresa][trabajo.year]) {
+      empresas[trabajo.empresa][trabajo.year] = [];
+    }
+    empresas[trabajo.empresa][trabajo.year].push(trabajo.salario);
+  }
+}
