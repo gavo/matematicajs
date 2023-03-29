@@ -35,3 +35,53 @@ for (persona of salarios) {
     empresas[trabajo.empresa][trabajo.year].push(trabajo.salario);
   }
 }
+
+function medianaEmpresaYear(nombre, year) {
+  if (!empresas[nombre]) {
+    console.warn("la empresa no existe");
+    return;
+  }
+  if (!empresas[nombre][year]) {
+    console.warn("La empresa no dio salarios ese año");
+    return;
+  }
+  return calculateMedian(empresas[nombre][year]);
+}
+console.log(empresas);
+function proyeccionPorEmpresa(nombre) {
+  if (!empresas[nombre]) {
+    console.warn("La empresa no Existe");
+    return;
+  }
+  const listaMedianaYear = Object.keys(empresas[nombre]).map((year) =>
+    medianaEmpresaYear(nombre, year)
+  );
+  let porcentajesAumentos = [];
+  for (let i = 1; i < listaMedianaYear.length; i++) {
+    const crecimiento = listaMedianaYear[i] - listaMedianaYear[i - 1];
+    porcentajesAumentos.push(crecimiento / listaMedianaYear[i - 1]);
+  }
+  return (
+    calculateMedian(porcentajesAumentos) *
+      listaMedianaYear[listaMedianaYear.length - 1] +
+    listaMedianaYear[listaMedianaYear.length - 1]
+  );
+}
+
+function medianaGeneral() {
+  const medianaPorCadaNombre = salarios.map((persona) =>
+    medianaPorPersona(persona.name)
+  );
+  return calculateMedian(medianaPorCadaNombre);
+}
+
+function medianaTop10() {
+  const listaMedianas = salarios.map((persona) =>
+    medianaPorPersona(persona.name)
+  );
+  listaMedianas.sort((a, b) => a - b);
+  const cantidad = listaMedianas.length / 10;
+  const limite = listaMedianas.length - cantidad;
+  listaMedianas.splice(0, limite);
+  return calculateMedian(listaMedianas);
+}

@@ -80,3 +80,11 @@ const calculatePonderingAverage = (notes) => {
 };
 console.log("Notas Ponderadas", notes);
 console.log("Promedio Ponderado", calculatePonderingAverage(notes).toFixed(2));
+
+const PlatziMath = {
+  calculatePonderingAverage,
+  calculateMode,
+  averageReduce,
+  averageForeach,
+  calculatePonderingAverage,
+};
